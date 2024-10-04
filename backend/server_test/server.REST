@@ -1,0 +1,19 @@
+GET http://localhost:8000/chats
+
+###
+
+POST http://localhost:8000/chats
+Content-Type: application/json
+
+{
+  "user": "How's the weather today?"
+}
+
+###
+//Should throw an error
+POST http://localhost:8000/chats
+Content-Type: application/json
+
+{
+  "user1": "How's the weather today?"
+}

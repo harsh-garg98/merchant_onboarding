@@ -1,3 +1,14 @@
+1. npm and Python3
+2. REST client for vscode (optional)
+3. No additional setup needed; no .env\* files in the project (yet)
+4. Script to run server already added in package.json
+5. To contribute, push in a separate branch
+
+Pending tasks (Harsh):
+
+1.  Connect backend and frontend
+2.  Make all possible user interactions functional
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
