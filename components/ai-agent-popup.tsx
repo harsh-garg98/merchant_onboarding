@@ -23,59 +23,64 @@ export default function AIAgentPopup() {
 					<BotIcon />
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px] w-full">
-				<div className="flex items-center justify-between border-b pb-4">
-					<div className="flex items-center gap-3">
-						<Avatar className="w-10 h-10">
-							<AvatarImage src="/download.jpeg" alt="Chatbot" />
-							<AvatarFallback>CB</AvatarFallback>
-						</Avatar>
-						<div>
-							<h4 className="text-lg font-medium">Sauron</h4>
-							<p className="text-sm text-gray-500 dark:text-gray-400">Online</p>
+			<DialogContent className="sm:max-w-[425px] w-full flex flex-row">
+				<div></div>
+				<div>
+					<div className="flex items-center justify-between border-b pb-4">
+						<div className="flex items-center gap-3">
+							<Avatar className="w-10 h-10">
+								<AvatarImage src="/download.jpeg" alt="Chatbot" />
+								<AvatarFallback>CB</AvatarFallback>
+							</Avatar>
+							<div>
+								<h4 className="text-lg font-medium">Sauron</h4>
+								<p className="text-sm text-gray-500 dark:text-gray-400">
+									Online
+								</p>
+							</div>
 						</div>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button variant="ghost" size="icon" className="rounded-full">
+									<FlipVerticalIcon className="h-4 w-4" />
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end">
+								<DropdownMenuItem>
+									<UserIcon className="mr-2 h-4 w-4" />
+									View Profile
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<SettingsIcon className="mr-2 h-4 w-4" />
+									Settings
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem>
+									<PowerIcon className="mr-2 h-4 w-4" />
+									Logout
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="ghost" size="icon" className="rounded-full">
-								<FlipVerticalIcon className="h-4 w-4" />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem>
-								<UserIcon className="mr-2 h-4 w-4" />
-								View Profile
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<SettingsIcon className="mr-2 h-4 w-4" />
-								Settings
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								<PowerIcon className="mr-2 h-4 w-4" />
-								Logout
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</div>
-				<ScrollArea className="h-[400px] mt-4">
-					<div className="space-y-4 p-4">
-						<BotMessage message="Hello! How can I help you today?" />
-						<UserMessage message="I'd like to learn more about your product offerings." />
-						<BotMessage
-							message="Absolutely, I'd be happy to provide more information. Our
+					<ScrollArea className="h-[400px] mt-4">
+						<div className="space-y-4 p-4">
+							<BotMessage message="Hello! How can I help you today?" />
+							<UserMessage message="I'd like to learn more about your product offerings." />
+							<BotMessage
+								message="Absolutely, I'd be happy to provide more information. Our
 									product line includes..."
+							/>
+						</div>
+					</ScrollArea>
+					<div className="mt-4 flex items-center gap-2">
+						<Textarea
+							placeholder="Type your message..."
+							className="flex-1 resize-none rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2"
 						/>
+						<Button type="submit">
+							<SendIcon className="h-4 w-4" />
+						</Button>
 					</div>
-				</ScrollArea>
-				<div className="mt-4 flex items-center gap-2">
-					<Textarea
-						placeholder="Type your message..."
-						className="flex-1 resize-none rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2"
-					/>
-					<Button type="submit">
-						<SendIcon className="h-4 w-4" />
-					</Button>
 				</div>
 			</DialogContent>
 		</Dialog>
