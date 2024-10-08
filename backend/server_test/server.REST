@@ -17,3 +17,8 @@ Content-Type: application/json
 {
   "user1": "How's the weather today?"
 }
+
+###
+// Delete chats and re-initialise with forst greeting message
+// Not to be used in the react app
+DELETE http://localhost:8000/chats

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 from typing import List, Dict
@@ -6,9 +7,18 @@ import uvicorn
 import os
 import sys
 
+
 chatHistory = os.path.join(os.path.dirname(sys.path[0]), "db/chatHistory.json")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Message(BaseModel):
     ai: str = None
@@ -37,11 +47,32 @@ def post_chat(message: Message):
         chats = []
     
     chats.append(new_message)
+
+    # Section to send over staged AI's message
+
+    ai_message = {"ai": "I am a staged AI message."}
+
+    chats.append(ai_message)
     
+    # End of AI message section
+
     with open(chatHistory, 'w') as file:
         json.dump(chats, file, indent=4)
     
-    return new_message
+    return ai_message
+
+@app.delete("/chats")
+def delete_chats():
+    try:
+        os.remove(chatHistory)
+        chats = [{"ai": "Hello! How can I help you today?"}]
+        with open(chatHistory, 'w') as file:
+            json.dump(chats, file, indent=4)
+
+    except FileNotFoundError:
+        pass
+    return {"message": "Chat history deleted."}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+

@@ -13,12 +13,44 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "./ui/scroll-area";
 import { Textarea } from "./ui/textarea";
+import { fetchResponse, useChatbot } from "@/hooks/useChatbot";
 
 export default function AIAgentVideo() {
 	const [showTexts, setShowTexts] = useState<boolean>(false);
+	const [chatHistory, setChatHistory] = useChatbot();
+	const [userMessage, setUserMessage] = useState<string>("");
+
+	const handleSubmit = async (message: string) => {
+		setChatHistory((prev) => {
+			if (prev) {
+				return [...prev, { user: message }];
+			} else {
+				return [{ user: message }];
+			}
+		});
+		const response = await fetchResponse(message);
+		if (response) {
+			setChatHistory((prev) => {
+				if (prev) {
+					return [...prev, response];
+				} else {
+					return [{ user: message }];
+				}
+			});
+		} else {
+			setChatHistory((prev) => {
+				if (prev) {
+					return [...prev, { ai: "Sorry, I didn't understand that." }];
+				} else {
+					return [{ ai: "Sorry, I didn't understand that." }];
+				}
+			});
+		}
+		setUserMessage("");
+	};
 
 	return (
-		<Dialog defaultOpen>
+		<Dialog>
 			<DialogTrigger asChild>
 				<Button
 					variant="ghost"
@@ -36,10 +68,15 @@ export default function AIAgentVideo() {
 					}`}>
 					<div className="aspect-video flex flex-col items-center">
 						<video
-							src="/talking.mp4"
+							src="/sithTalking.mp4"
+							aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUXbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D"
+							// If you want to download your own copy of the video, you can use the link above
+							autoPlay
 							controls
-							className="w-full h-full object-cover">
-							Your browser does not support the video tag.
+							// muted
+							className="aspect-square h-full object-cover rounded-full">
+							Your browser does not support the Tragedy of Darth Plageus the
+							Wise.
 						</video>
 						<Button
 							onClick={() => setShowTexts(!showTexts)}
@@ -90,20 +127,23 @@ export default function AIAgentVideo() {
 							</div>
 							<ScrollArea className="h-[400px] mt-4">
 								<div className="space-y-4 p-4">
-									<BotMessage message="Hello! How can I help you today?" />
-									<UserMessage message="I'd like to learn more about your product offerings." />
-									<BotMessage
-										message="Absolutely, I'd be happy to provide more information. Our
-									product line includes..."
-									/>
+									{chatHistory?.map((chat, index) => {
+										if (chat.ai) {
+											return <BotMessage key={index} message={chat.ai} />;
+										} else {
+											return <UserMessage key={index} message={chat.user!} />;
+										}
+									})}
 								</div>
 							</ScrollArea>
 							<div className="mt-4 flex items-center gap-2">
 								<Textarea
 									placeholder="Type your message..."
 									className="flex-1 resize-none rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2"
+									value={userMessage}
+									onChange={(e) => setUserMessage(e.target.value)}
 								/>
-								<Button type="submit">
+								<Button type="submit" onClick={() => handleSubmit(userMessage)}>
 									<SendIcon className="h-4 w-4" />
 								</Button>
 							</div>
