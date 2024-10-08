@@ -4,6 +4,7 @@ import "./globals.css";
 import PageTitle from "@/components/page-title";
 import { Separator } from "@/components/ui/separator";
 import AIAgentPopup from "@/components/ai-agent-popup";
+import AIAgentVideo from "@/components/ai-agent-with-video";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -34,7 +35,8 @@ export default function RootLayout({
 					header="Merchant Onboarding"
 					subtitle="Get started with your merchant account"
 				/>
-				<AIAgentPopup />
+				<AIAgentVideo />
+				{/* <AIAgentPopup /> */}
 				{children}
 				<footer>
 					<Separator className="my-4" />

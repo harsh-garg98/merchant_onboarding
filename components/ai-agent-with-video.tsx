@@ -1,8 +1,9 @@
-//Not being used in the project
+"use client";
 
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { JSX, SVGProps, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -10,13 +11,14 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Textarea } from "@/components/ui/textarea";
-import { JSX, SVGProps } from "react";
+import { ScrollArea } from "./ui/scroll-area";
+import { Textarea } from "./ui/textarea";
 
-export default function AIAgentPopup() {
+export default function AIAgentVideo() {
+	const [showTexts, setShowTexts] = useState<boolean>(false);
+
 	return (
-		<Dialog>
+		<Dialog defaultOpen>
 			<DialogTrigger asChild>
 				<Button
 					variant="ghost"
@@ -25,59 +27,88 @@ export default function AIAgentPopup() {
 					<BotIcon />
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px] w-full">
-				<div className="flex items-center justify-between border-b pb-4">
-					<div className="flex items-center gap-3">
-						<Avatar className="w-10 h-10">
-							<AvatarImage src="/download.jpeg" alt="Chatbot" />
-							<AvatarFallback>CB</AvatarFallback>
-						</Avatar>
-						<div>
-							<h4 className="text-lg font-medium">Sauron</h4>
-							<p className="text-sm text-gray-500 dark:text-gray-400">Online</p>
-						</div>
+			<DialogContent className="max-w-4xl">
+				<div
+					className={`${
+						showTexts === true
+							? "grid grid-cols-2 gap-4 justify-center items-center"
+							: "p-5"
+					}`}>
+					<div className="aspect-video flex flex-col items-center">
+						<video
+							src="/talking.mp4"
+							controls
+							className="w-full h-full object-cover">
+							Your browser does not support the video tag.
+						</video>
+						<Button
+							onClick={() => setShowTexts(!showTexts)}
+							className="mt-4 w-fit">
+							{showTexts ? "Hide Chats" : "Show Chats"}
+						</Button>
 					</div>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="ghost" size="icon" className="rounded-full">
-								<FlipVerticalIcon className="h-4 w-4" />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem>
-								<UserIcon className="mr-2 h-4 w-4" />
-								View Profile
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<SettingsIcon className="mr-2 h-4 w-4" />
-								Settings
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								<PowerIcon className="mr-2 h-4 w-4" />
-								Logout
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</div>
-				<ScrollArea className="h-[400px] mt-4">
-					<div className="space-y-4 p-4">
-						<BotMessage message="Hello! How can I help you today?" />
-						<UserMessage message="I'd like to learn more about your product offerings." />
-						<BotMessage
-							message="Absolutely, I'd be happy to provide more information. Our
+					{showTexts && (
+						<div className="border rounded p-5 mr-4">
+							<div className="flex items-center justify-between border-b pb-4">
+								<div className="flex items-center gap-3">
+									<Avatar className="w-10 h-10">
+										<AvatarImage src="/download.jpeg" alt="Chatbot" />
+										<AvatarFallback>CB</AvatarFallback>
+									</Avatar>
+									<div>
+										<h4 className="text-lg font-medium">Sauron</h4>
+										<p className="text-sm text-gray-500 dark:text-gray-400">
+											Online
+										</p>
+									</div>
+								</div>
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<Button
+											variant="ghost"
+											size="icon"
+											className="rounded-full">
+											<FlipVerticalIcon className="h-4 w-4" />
+										</Button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent align="end">
+										<DropdownMenuItem>
+											<UserIcon className="mr-2 h-4 w-4" />
+											View Profile
+										</DropdownMenuItem>
+										<DropdownMenuItem>
+											<SettingsIcon className="mr-2 h-4 w-4" />
+											Settings
+										</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem>
+											<PowerIcon className="mr-2 h-4 w-4" />
+											Logout
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</div>
+							<ScrollArea className="h-[400px] mt-4">
+								<div className="space-y-4 p-4">
+									<BotMessage message="Hello! How can I help you today?" />
+									<UserMessage message="I'd like to learn more about your product offerings." />
+									<BotMessage
+										message="Absolutely, I'd be happy to provide more information. Our
 									product line includes..."
-						/>
-					</div>
-				</ScrollArea>
-				<div className="mt-4 flex items-center gap-2">
-					<Textarea
-						placeholder="Type your message..."
-						className="flex-1 resize-none rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2"
-					/>
-					<Button type="submit">
-						<SendIcon className="h-4 w-4" />
-					</Button>
+									/>
+								</div>
+							</ScrollArea>
+							<div className="mt-4 flex items-center gap-2">
+								<Textarea
+									placeholder="Type your message..."
+									className="flex-1 resize-none rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2"
+								/>
+								<Button type="submit">
+									<SendIcon className="h-4 w-4" />
+								</Button>
+							</div>
+						</div>
+					)}
 				</div>
 			</DialogContent>
 		</Dialog>
@@ -114,24 +145,6 @@ function UserMessage({ message }: { message: string }) {
 
 function BotIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 	return (
-		// <svg
-		// 	{...props}
-		// 	xmlns="http://www.w3.org/2000/svg"
-		// 	width="24"
-		// 	height="24"
-		// 	viewBox="0 0 24 24"
-		// 	fill="none"
-		// 	stroke="currentColor"
-		// 	strokeWidth="2"
-		// 	strokeLinecap="round"
-		// 	strokeLinejoin="round">
-		// 	<path d="M12 8V4H8" />
-		// 	<rect width="16" height="12" x="4" y="8" rx="2" />
-		// 	<path d="M2 14h2" />
-		// 	<path d="M20 14h2" />
-		// 	<path d="M15 13v2" />
-		// 	<path d="M9 13v2" />
-		// </svg>
 		<Avatar className="w-12 h-12 shadow-xl">
 			<AvatarImage src="/download.jpeg" alt="Chatbot" />
 			<AvatarFallback>CB</AvatarFallback>
