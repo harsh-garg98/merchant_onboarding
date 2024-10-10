@@ -14,13 +14,15 @@ import {
 import { ScrollArea } from "./ui/scroll-area";
 import { Textarea } from "./ui/textarea";
 import { deleteChat, fetchResponse, useChatbot } from "@/hooks/useChatbot";
+import { usePathname } from "next/navigation";
+import Icon from "@mdi/react";
+import { mdiExclamation } from "@mdi/js";
 
 export default function AIAgentVideo() {
 	const [showTexts, setShowTexts] = useState<boolean>(false);
 	const [chatHistory, setChatHistory] = useChatbot();
 	const [userMessage, setUserMessage] = useState<string>("");
-
-	console.log(chatHistory);
+	const alert = usePathname() === "/wait-for-verification";
 
 	const handleSubmit = async (message: string) => {
 		setChatHistory((prev) => {
@@ -57,8 +59,10 @@ export default function AIAgentVideo() {
 				<Button
 					variant="ghost"
 					size="icon"
-					className="rounded-full shadow-xl fixed right-12 bottom-12">
-					<BotIcon />
+					className={`rounded-full shadow-xl fixed ${
+						alert ? "right-12 bottom-20" : "right-12 bottom-12"
+					}`}>
+					<BotIcon alert={alert} />
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="max-w-4xl">
@@ -207,12 +211,15 @@ function UserMessage({ message }: { message: string }) {
 	);
 }
 
-function BotIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+function BotIcon({ alert }: { alert: boolean }) {
 	return (
-		<Avatar className="w-16 h-16 shadow-xl">
-			<AvatarImage src="/salesPro.jpg" alt="Chatbot" />
-			<AvatarFallback>CB</AvatarFallback>
-		</Avatar>
+		<div className="flex flex-col justify-center items-center">
+			{alert && <Icon path={mdiExclamation} color="red" size="4rem" />}
+			<Avatar className="w-16 h-16 shadow-xl">
+				<AvatarImage src="/salesPro.jpg" alt="Chatbot" />
+				<AvatarFallback>CB</AvatarFallback>
+			</Avatar>
+		</div>
 	);
 }
 
