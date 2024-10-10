@@ -1,23 +1,23 @@
 [
     {
-        "ai": "Did you ever hear the tragedy of Darth Plagueis The Wise?"
+        "ai": "Hello! How can I help you today?"
     },
     {
-        "user": "No"
+        "user": "Hi i wanted some help\n"
     },
     {
-        "ai": " I thought not. It\u2019s not a story the Jedi would tell you. It\u2019s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life\u2026 He had such a knowledge of the dark side that he could even keep the ones he cared about from dying."
+        "ai": "Of course! What would you like to know?"
     },
     {
-        "user": "He could actually save people from death?"
+        "user": "I wanted to know the status of my application"
     },
     {
-        "ai": "The dark side of the Force is a pathway to many abilities some consider to be unnatural."
+        "ai": "Definitely! Here's a short summary of the status of your onboarding:\n1. We have received your personal details.\n2. We have received your documents and are verifying them.\n3. Your Business Registration Document seems to be an incorrect document. Are you sure you wanted to submit a document called xyz? (CHANGE THIS NAME)\n4. We are verifying the details on your Tax Identification Numbers document, Ownership Documents, Bank Account Information, Business Licences and Permits, Payment Processing History, Business Plan and Revenue Projections, and Compliance Documentation.\n5. Your Financial Statements are approved."
     },
     {
-        "user": "Hello!"
+        "user": "1. Document intelligence for the first page form\n2. Nudge the user when there's a rejected document"
     },
     {
-        "ai": "I am a staged AI message."
+        "ai": "Of course! What would you like to know?"
     }
 ]

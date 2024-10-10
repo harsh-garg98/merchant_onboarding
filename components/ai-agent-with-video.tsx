@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, SVGProps, useState } from "react";
+import { Fragment, JSX, SVGProps, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -13,12 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "./ui/scroll-area";
 import { Textarea } from "./ui/textarea";
-import { fetchResponse, useChatbot } from "@/hooks/useChatbot";
+import { deleteChat, fetchResponse, useChatbot } from "@/hooks/useChatbot";
 
 export default function AIAgentVideo() {
 	const [showTexts, setShowTexts] = useState<boolean>(false);
 	const [chatHistory, setChatHistory] = useChatbot();
 	const [userMessage, setUserMessage] = useState<string>("");
+
+	console.log(chatHistory);
 
 	const handleSubmit = async (message: string) => {
 		setChatHistory((prev) => {
@@ -68,11 +70,12 @@ export default function AIAgentVideo() {
 					}`}>
 					<div className="aspect-video flex flex-col items-center">
 						<video
-							src="/sithTalking.mp4"
+							src="/guySpeaking.webm"
 							aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUXbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D"
 							// If you want to download your own copy of the video, you can use the link above
 							autoPlay
-							controls
+							loop
+							// controls
 							// muted
 							className="aspect-square h-full object-cover rounded-full">
 							Your browser does not support the Tragedy of Darth Plageus the
@@ -83,17 +86,29 @@ export default function AIAgentVideo() {
 							className="mt-4 w-fit">
 							{showTexts ? "Hide Chats" : "Show Chats"}
 						</Button>
+						{showTexts ? (
+							<Button
+								className="mt-4"
+								onClick={() => {
+									deleteChat();
+									window.location.reload();
+								}}>
+								Clear Chats
+							</Button>
+						) : (
+							<></>
+						)}
 					</div>
 					{showTexts && (
 						<div className="border rounded p-5 mr-4">
 							<div className="flex items-center justify-between border-b pb-4">
 								<div className="flex items-center gap-3">
 									<Avatar className="w-10 h-10">
-										<AvatarImage src="/download.jpeg" alt="Chatbot" />
+										<AvatarImage src="/salesPro.jpg" alt="Chatbot" />
 										<AvatarFallback>CB</AvatarFallback>
 									</Avatar>
 									<div>
-										<h4 className="text-lg font-medium">Sauron</h4>
+										<h4 className="text-lg font-medium">Susie and Ryan</h4>
 										<p className="text-sm text-gray-500 dark:text-gray-400">
 											Online
 										</p>
@@ -156,14 +171,23 @@ export default function AIAgentVideo() {
 }
 
 function BotMessage({ message }: { message: string }) {
+	function addNewlines(message: string) {
+		return message.split("\n").map((str, index) => (
+			<Fragment key={index}>
+				{str}
+				<br />
+			</Fragment>
+		));
+	}
+
 	return (
 		<div className="flex items-start gap-3">
 			<Avatar className="w-8 h-8">
-				<AvatarImage src="/download.jpeg" alt="Chatbot" />
+				<AvatarImage src="/salesPro.jpg" alt="Chatbot" />
 				<AvatarFallback>CB</AvatarFallback>
 			</Avatar>
 			<div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 max-w-[80%]">
-				<p>{message}</p>
+				<p>{addNewlines(message)}</p>
 			</div>
 		</div>
 	);
@@ -176,8 +200,8 @@ function UserMessage({ message }: { message: string }) {
 				<p>{message}</p>
 			</div>
 			<Avatar className="w-8 h-8">
-				<AvatarImage src="/download1.jpeg" alt="You" />
-				<AvatarFallback>YO</AvatarFallback>
+				<AvatarImage alt="You" />
+				<AvatarFallback>U</AvatarFallback>
 			</Avatar>
 		</div>
 	);
@@ -185,8 +209,8 @@ function UserMessage({ message }: { message: string }) {
 
 function BotIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 	return (
-		<Avatar className="w-12 h-12 shadow-xl">
-			<AvatarImage src="/download.jpeg" alt="Chatbot" />
+		<Avatar className="w-16 h-16 shadow-xl">
+			<AvatarImage src="/salesPro.jpg" alt="Chatbot" />
 			<AvatarFallback>CB</AvatarFallback>
 		</Avatar>
 	);

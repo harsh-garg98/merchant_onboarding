@@ -43,3 +43,13 @@ export const fetchResponse = async (message: string) => {
 		console.error(error);
 	}
 };
+
+export const deleteChat = async () => {
+	try {
+		await fetch("http://localhost:8000/chats", {
+			method: "DELETE",
+		});
+	} catch (error) {
+		console.error(error);
+	}
+};
