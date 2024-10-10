@@ -57,7 +57,7 @@ export default function AIAgentVideo() {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button
-					variant="ghost"
+					variant="basic"
 					size="icon"
 					className={`rounded-full shadow-xl fixed ${
 						alert ? "right-12 bottom-20" : "right-12 bottom-12"
